@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+	<script src="srflaEval.js"></script>
+	<script src="srflaMathParser.js"></script>
+	<script src="source.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link href="style.css"rel="stylesheet" type="text/css" />
+</head>
+
+<body >
+	<div id="wrapper">
+		<div id="header">
+			<div id="nav">
+				<ul>
+				    <li><a href="#">First-Order Logic</a></li>
+<!-- 				    <li><a href="#">Propositional Logic</a></li>
+				    <li><a href="#">Turing Machines<span class="right-arrow">&#9658;</span></a>
+				        <ul>
+				            <li><a href="#">Topic1</a></li>
+				            <li><a href="#">Topic2</a></li>
+				            <li><a href="#">Question1<span class="right-arrow">&#9658;</span></a>
+				                <ul>
+				                    <li><a href="#">SubQuestion1</a></li>
+				                    <li><a href="#">SubQuestion2</a></li>
+				                </ul></li>
+				            <li><a href="#">Topic3<span class="right-arrow">&#9658;</span></a>
+				                <ul>
+				                    <li><a href="#">SubTopic1</a></li>
+				                    <li><a href="#">SubTopic2</a></li>
+				                </ul></li>
+				            <li><a href="#">Question2<span class="right-arrow">&#9658;</span></a>
+				                <ul>
+				                    <li><a href="#">SubQuestion1</a></li>
+				                    <li><a href="#">SubQuestion2</a></li>
+				                </ul></li>
+				        </ul>
+				    </li>
+				    <li><a href="#">Context Free Grammars<span class="right-arrow">&#9658;</span></a>
+				        <ul>
+				            <li><a href="#">Topic1</a></li>
+				            <li><a href="#">Topic2</a></li>
+				            <li><a href="#">Question1<span class="right-arrow">&#9658;</span></a>
+				                <ul>
+				                    <li><a href="#">SubQuestion1</a></li>
+				                    <li><a href="#">SubQuestion2</a></li>
+				                </ul></li>
+				            <li><a href="#">Topic3<span class="right-arrow">&#9658;</span></a>
+				                <ul>
+				                    <li><a href="#">SubTopic1</a></li>
+				                    <li><a href="#">SubTopic2</a></li>
+				                </ul></li>
+				            <li><a href="#">Question2<span class="right-arrow">&#9658;</span></a>
+				                <ul>
+				                    <li><a href="#">SubQuestion1</a></li>
+				                    <li><a href="#">SubQuestion2</a></li>
+				                </ul></li>
+				        </ul>
+				    </li>
+				    <li><a href="#">NP Complete</a></li> -->
+				</ul>
+				<br class="clearboth"/>
+			</div>
+		</div>
+		<div id="container">
+			<div id="side-a">
+<!-- 				SIDE A1 -->
+			</div>
+			
+			<div id="content">
+				<div id="assignment">
+					<p>
+						Formula: "eval \\forall x \\in world, y \\in world : (Blue(x) \\wedge Gray(y) \\implies LeftOf(x, y));"
+<!-- 						Place the blue square above the red square and the gray square to the left of the red square! -->
+					</p>
+					<br>
+<!-- 					AbsX:<input type="text" id="absX" size="3"> AbsY:<input type="text" id="absY" size="3">
+					GridX:<input type="text" id="cursorX" size="3"> GridY:<input type="text" id="cursorY" size="3"> -->
+					<button onclick="submitAndVerify()">Check</button>
+					<button onclick="getJSON()">JSON</button>
+				</div>
+				<div id="bodyContainer">
+					<div id="borderContainer">
+						<div id="gridContainer">
+						</div>
+						<div id="block1"></div>
+						<div id="block2"></div>
+						<div id="block3"></div>
+						<div id="block4"></div>
+						<div id="block5"></div>
+					</div>
+				</div>
+			</div>
+			
+		<div id="side-b">
+<!-- 			SIDE B -->
+		</div>
+		</div>
+		<div id="footer">
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+		init();
+	</script>
+</body>
+</html>

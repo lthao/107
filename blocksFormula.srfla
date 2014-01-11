@@ -1,0 +1,1 @@
+\forall x \in world, y \in world : (Blue(x) \wedge Gray(y) \implies LeftOf(x, y))

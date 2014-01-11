@@ -1,0 +1,9 @@
+function LeftOf(b1, b2) b1.x < b2.x;
+function RightOf(b1, b2) b1.x > b2.x;
+function Below(b1, b2) b1.y < b2.x;
+function Above(b1, b2) b1.x > b2.x;
+function Red(b1) b1.color = \"red\";
+function Gray(b1) b1.color = \"gray\";
+function Blue(b1) b1.color = \"blue\";
+
+
