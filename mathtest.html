@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Truth Table Generator</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+<script src="srflaEval.js"></script>
+<script src="srflaTruthTable.js"></script>
+<script src="srflaMathParser.js"></script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      T: "\\mathbf{T}",
+      F: "\\mathbf{F}",
+      implies: "\\to",
+      bicond: "\\leftrightarrow",
+      xor: "\\oplus"
+    }
+  }
+});
+</script>
+<script>
+  function parseEnteredFormula(selector) {
+     var iform = $(selector).val();
+     iform = "eval " + iform + ";";
+     if (!iform.match(/^\s*$/)) {
+        var parsedFormula = srflaMathParser.parse(iform);
+      }
+      return parsedFormula;
+  }
+
+
+  $(document).ready(function () {
+    $("#displayFormula").click(function () {
+      $("#error").html(String(""));
+      try {
+        var parsed = parseEnteredFormula("#inputFormula1");
+        $("#mathdisplay").html("\\(" + $("textarea").val() + "\\)");
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"mathdisplay"]);
+      } 
+      catch (e) {
+        $("#error").html(String(e));
+      }
+    });
+  });
+</script>
+<script type="text/javascript"
+	    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style>
+
+.padleft {
+  padding-left: 5pt;
+}
+
+.padright {
+  padding-right: 5pt;
+}
+
+.padlr {
+  padding:0pt 5pt 0pt;
+}
+
+.rm {
+   font-family:"Times New Roman",Georgia,Serif;
+   font-size:150%;
+   font-weight:bold;
+   text-align: center;
+}
+
+.rmlg {
+   font-family:"Times New Roman",Georgia,Serif;
+   font-size:180%;
+   font-weight:bold;
+   text-align: center;
+}
+
+td
+{
+  border-bottom: 1pt solid black;
+  text-align: center;
+  padding-top:5pt;
+}
+
+th
+{
+  border-bottom: 1pt solid black;
+  text-align: center;
+  padding-top:5pt;
+}
+
+body
+{
+   background-color:#F2F2F2;
+   font-family:Arial, Helvetica, sans-serif;
+   color:#2D333A;
+}
+
+/* attempt to line up formula label with textarea */
+.line 
+{
+    margin-bottom: 18px;
+}
+
+.line #ilabel
+{
+   display:inline-block;
+   width:160px;
+   text-align:right;
+}
+
+.textarea
+{
+   display:inline-block;
+    -moz-border-radius: 3px 3px 3px 3px;
+    border: 1px solid #CCCCCC;
+}
+
+button
+{
+  background:#7F8285;
+  color:white;
+  height:30px;
+ # font-weight:bold;
+  border : 1px solid #999;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top, #4C4E50 0%, #B2B4B6 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top, #4C4E50 0%, #B2B4B6 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top, #4C4E50 0%, #B2B4B6 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4C4E50), color-stop(1, #B2B4B6));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top, #4C4E50 0%, #B2B4B6 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom, #4C4E50 0%, #B2B4B6 100%);
+}
+
+.indent
+{
+    text-indent:50px; 
+}
+
+</style>
+
+</head>
+<body>
+<center><h1>Truth Table Generator</h1></center>
+
+
+<p class="indent"><a href="TThelp.html">Click here for help.</a></p>
+
+<p class="indent">Enter from one to three propositional logic formulas:</p>
+
+<div class='line'>
+<label for='input' id="ilabel">Formula 1:</label> 
+<textarea id="inputFormula1" cols="70" rows="2" ></textarea><br>
+</div>
+
+<div class='line'>
+<p id="mathdisplay" class="indent"> </p>
+</div>
+
+<br>
+<center>
+<button id="displayFormula">Parse and Display formula</button>
+</center>
+<br>
+
+<pre id="error" > </pre>
+
+<p class="indent">
+If there is a problem with this page, please email
+<a href="mailto:dill@cs.stanford.edu?subject="Blocks world web page problem">
+the bug fixer.</a>
+Please include the formula that failed.
+</p>
+
+</body>
+</html>

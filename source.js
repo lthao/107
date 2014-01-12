@@ -82,7 +82,11 @@ function getJSON()
 
 function submitAndVerify()
 {
-	var inputFormula = "eval \\forall x \\in world, y \\in world : (Blue(x) \\wedge Gray(y) \\implies LeftOf(x, y));";
+	var formula = document.getElementsByName('formula')[0].value;
+	var inputFormula = "eval "+formula+";";
+	
+	//var inputFormula = "eval \\forall x \\in world, y \\in world : (Blue(x) \\wedge Gray(y) \\implies LeftOf(x, y));";
+	//alert(inputFormula);
 
   	// Convert to srfla representation
   	globalInterp.world = blocksWorldToSrfla(world);
@@ -477,6 +481,24 @@ function init()
 	document.onmouseup = mouseUp;
 	console.log("done init");
 }
+
+function displayFormula()
+{
+	var formula = document.getElementsByName('formula')[0].value;
+	alert(formula);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
