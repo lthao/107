@@ -1,4 +1,3 @@
-
 var world = new Array();
 
 var row_one = '[{"id":"cc00","coordinates":"0,0","x":0,"y":0,"color":"gray"},{"id":"cc01","coordinates":"0,1","x":50,"y":0,"color":"blue"},{"id":"cc02","coordinates":"0,2","x":100,"y":0,"color":"white"},{"id":"cc03","coordinates":"0,3","x":150,"y":0,"color":"white"},{"id":"cc04","coordinates":"0,4","x":200,"y":0,"color":"white"}]';
@@ -26,7 +25,6 @@ var gridObjOffsetTop = 0;
 var gridObjOffsetLeft = 0;
 
 var paletteClicked = false;
-var gridClicked = false;
 
 //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
 
@@ -82,11 +80,11 @@ function getJSON()
 
 function submitAndVerify()
 {
-	var formula = document.getElementsByName('formula')[0].value;
+	var formula = document.getElementById('inputFormula1').value;
 	var inputFormula = "eval "+formula+";";
 	
-	//var inputFormula = "eval \\forall x \\in world, y \\in world : (Blue(x) \\wedge Gray(y) \\implies LeftOf(x, y));";
-	//alert(inputFormula);
+	// var inputFormula = "eval \\forall x \\in world, y \\in world : (Blue(x) \\wedge Gray(y) \\implies LeftOf(x, y));";
+	// alert(inputFormula);
 
   	// Convert to srfla representation
   	globalInterp.world = blocksWorldToSrfla(world);
@@ -149,8 +147,6 @@ function submitAndVerify()
       	//document.getElementById("result").innerHTML="<p>FALSE</p>";
       	//$("#result").html("<p> F </p>");
     }
-	//alert(JSON.stringify(world));
-	//console.log("submitted");
 	//$.post("submit.php", { "blue_Y": localBlueY, "red_Y": localRedY } );
 }
 
@@ -167,13 +163,13 @@ function remap(input)
 function getMouseXY(event) 
 {
 
-    //turn on and off as a sanity check 
+    // turn on and off as a sanity check 
     // document.getElementById('absX').value = event.pageX;
     // document.getElementById('absY').value = event.pageY;
     var localX = event.pageX - borderObjOffsetLeft;
     var localY = event.pageY - borderObjOffsetTop;
   	// document.getElementById('cursorX').value = localX;
-   //  document.getElementById('cursorY').value = localY;
+    // document.getElementById('cursorY').value = localY;
 
 	if (paletteClicked)
 	{
@@ -183,14 +179,8 @@ function getMouseXY(event)
     	var adjY = absY - borderObjOffsetTop;
 
     	var currentElement = document.getElementById("paletteElem");
-		//console.log("adjX: " + adjX);
-		//console.log("adjY: " + adjY);
-		// currentObj.x = (adjX - 25);
-		// currentObj.y = (adjY - 25);
 		currentElement.style.left = (adjX - 25) + "px";
-		//console.log("objLeft: " + currentObj.styleLeft);
 		currentElement.style.top = (adjY - 25) + "px";
-		//console.log("objTop: " + currentObj.styleTop);
 		displayGrid();
 	}
 }
@@ -460,7 +450,6 @@ function init()
 	// obj.onmouseover = displayInnerCoordinates;
 	initGridObj(base_grid)
 	displayGrid();
-//	createObjects(6, 50, 50);
 
 	var borderObj = document.getElementById('borderContainer');
 	borderObjOffsetTop = borderObj.offsetTop + 2;
@@ -487,8 +476,6 @@ function displayFormula()
 	var formula = document.getElementsByName('formula')[0].value;
 	alert(formula);
 }
-
-
 
 
 

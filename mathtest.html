@@ -4,8 +4,11 @@
 <title>Truth Table Generator</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
 <script src="srflaEval.js"></script>
-<script src="srflaTruthTable.js"></script>
 <script src="srflaMathParser.js"></script>
+
+<!-- The next script tag defines CS103-specific macros (like \implies) for
+     mathjax.  FIXME:  Should put in macros to make predicates like "Square"
+     in the blocks world print better.  -->
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -20,31 +23,68 @@ MathJax.Hub.Config({
   }
 });
 </script>
+
 <script>
+
+  // This function takes a jquery selector (in this case "#inputFormula1") as
+  // and argument, gets the string, puts "eval " on the front and ";" at the end
+  // If it is text is non-empty, it parses it.  I noticed a mistake here and 
+  // added an exception in the "else" telling the user to try again.
+  // This exception and parse errors, which also generate exceptions, get
+  // caught in the handler for the "Display Formula" button.  An error is reported
+  // and the user can try again.
   function parseEnteredFormula(selector) {
      var iform = $(selector).val();
-     iform = "eval " + iform + ";";
      if (!iform.match(/^\s*$/)) {
+        iform = "eval " + iform + ";";
         var parsedFormula = srflaMathParser.parse(iform);
+      }
+      else {
+        throw new Error("No formulas entered -- please try again");
       }
       return parsedFormula;
   }
 
-
+  // When the document "ready" event occurs, call the anonymouse function that
+  // adds a click handler to the dom object with id = "displayFormula", which is
+  // the "Display Formula" button.
   $(document).ready(function () {
     $("#displayFormula").click(function () {
+      // We are in  the handler for clicks on the "Display Formula" button.
+      // This next line clears the dom objet that displays an error message
+      // it is the <pre id="error"> tag in the html.  Without this, if the user
+      // enters a bad formula and clicks the "Display Formula" button, the
+      // old error hangs around even when it responds with a correct result.
       $("#error").html(String(""));
+      // This clears the mathdisplay, so it doesn't hang around when the user
+      // enters a new errorneous input.
+      $("#mathdisplay").html(String(""));
+      // This try block catches exceptions from the formula processing, like
+      // empty formulas and formulas with syntax errors.
       try {
+        // parse the formula and return a tree (as nested arrays).
         var parsed = parseEnteredFormula("#inputFormula1");
+        // inject html into the <p id="mathdisplay" class="indent"> </p>
+        // dom object.  The string is MathJax, so it is the input string 
+        // before parsing, enclosed in \( ... \), which tells MathJax to
+        // display it as math.
         $("#mathdisplay").html("\\(" + $("textarea").val() + "\\)");
+        // Force mathjax to process the new formula.  Otherwise, it only
+        // runs when the document is loaded.
         MathJax.Hub.Queue(["Typeset",MathJax.Hub,"mathdisplay"]);
       } 
       catch (e) {
+        // catch errors and inject the error html into the <pre id="error"> dom
+        // object.  This displays the error in a typewriter font, which is necessary
+        // to make parser errors readable.
         $("#error").html(String(e));
       }
     });
   });
 </script>
+
+<!-- The next script tag loads mathjax.  This has to follow the macros, etc.  I'm not sure
+     exactly why -- I just did what they told me. -->
 <script type="text/javascript"
 	    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
@@ -52,45 +92,17 @@ MathJax.Hub.Config({
 
 <style>
 
-.padleft {
-  padding-left: 5pt;
-}
+/* I removed some irrelevant style stuff (I borrowed this file from TT.html, the truth
+   table processor.  My wife helped with the CSS for that to get boxes nicely aligned
+   and indented, so I don't fully understand all of it.  
 
-.padright {
-  padding-right: 5pt;
-}
+   We don't have to do things this way, but I'd like to page to be formatted reasonably.
 
-.padlr {
-  padding:0pt 5pt 0pt;
-}
-
-.rm {
-   font-family:"Times New Roman",Georgia,Serif;
-   font-size:150%;
-   font-weight:bold;
-   text-align: center;
-}
-
-.rmlg {
-   font-family:"Times New Roman",Georgia,Serif;
-   font-size:180%;
-   font-weight:bold;
-   text-align: center;
-}
-
-td
-{
-  border-bottom: 1pt solid black;
-  text-align: center;
-  padding-top:5pt;
-}
-
-th
-{
-  border-bottom: 1pt solid black;
-  text-align: center;
-  padding-top:5pt;
-}
+   PROBLEM:  The error message is not indented.  When I add id="indent" to the <pre> tag,
+   the first line of the error message is indented by not the second.  This is not only
+   ugly but really bad because the parser error messages have a second line pointing to
+   the position of the error in the first line!
+*/
 
 body
 {
@@ -119,6 +131,8 @@ body
     border: 1px solid #CCCCCC;
 }
 
+/* This makes the button look nice.  There is some website that automatically generates
+   nice CSS colors. */
 button
 {
   background:#7F8285;
@@ -149,39 +163,46 @@ background-image: -webkit-linear-gradient(top, #4C4E50 0%, #B2B4B6 100%);
 background-image: linear-gradient(to bottom, #4C4E50 0%, #B2B4B6 100%);
 }
 
+/* for class = indent. */
 .indent
 {
     text-indent:50px; 
 }
 
+
 </style>
 
 </head>
 <body>
-<center><h1>Truth Table Generator</h1></center>
+<center><h1>Math input test</h1></center>
 
 
-<p class="indent"><a href="TThelp.html">Click here for help.</a></p>
+<p class="indent">Enter first-order logic formula:</p>
 
-<p class="indent">Enter from one to three propositional logic formulas:</p>
+<!-- Use of "textarea" here allows multi-line input -->
 
 <div class='line'>
 <label for='input' id="ilabel">Formula 1:</label> 
 <textarea id="inputFormula1" cols="70" rows="2" ></textarea><br>
 </div>
 
+<!-- This is where the mathematical formula is displayed -->
+
 <div class='line'>
 <p id="mathdisplay" class="indent"> </p>
 </div>
 
 <br>
+<!-- This is the button to display formulas. -->
 <center>
 <button id="displayFormula">Parse and Display formula</button>
 </center>
 <br>
 
+<!-- This is where error messages are displayed -->
 <pre id="error" > </pre>
 
+<!-- This is the place to click for bug reports. -->
 <p class="indent">
 If there is a problem with this page, please email
 <a href="mailto:dill@cs.stanford.edu?subject="Blocks world web page problem">
